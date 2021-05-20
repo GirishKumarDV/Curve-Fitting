@@ -50,7 +50,7 @@ void CurveFitting::straightLine()
     cout << "x\t\ty\t\tx^2\t\t\txy\n\n";
     for (i = 0; i < sl.count; i++)
     {
-        cout << sl.x[i] << "\t\t" << sl.y[i] << "\t\t" << (sl.x[i] * sl.y[i]) << "\t\t\t" << (sl.x[i] * sl.y[i]) << endl;
+        cout << sl.x[i] << "\t\t" << sl.y[i] << "\t\t" << (sl.x[i] * sl.x[i]) << "\t\t\t" << (sl.x[i] * sl.y[i]) << endl;
     }
     //Equatious to solve
     /*
@@ -59,11 +59,12 @@ aSUMx2 + bSUMx = SUMxy
 */
     //Calculate all required data
     double SUMx = 0, SUMy = 0, SUMx2 = 0, SUMxy = 0;
-    for (i = 0; i < count; i++)
+
+    for (i = 0; i < sl.count; i++)
     {
         SUMx += sl.x[i];
         SUMy += sl.y[i];
-        SUMx2 += (sl.x[i] * sl.x[i]);
+        SUMx2 += (pow(sl.x[i],2.0));
         SUMxy += (sl.x[i] * sl.y[i]);
     }
     cout << "\nNormal Equations : \n"
@@ -79,7 +80,7 @@ aSUMx2 + bSUMx = SUMxy
     // FINAL EQUATION
 
     cout << "\nEquation of Straight Line : " << endl;
-    cout << "\ny = " << setprecision(4) << a << "x + " << b << setprecision(4) << endl;
+    cout << "\ny = " << setprecision(4)<<sl.a << "x + " << sl.b << setprecision(4) << endl;
 
     // Solve for given x
     sl.solve();
@@ -103,7 +104,7 @@ void CurveFitting ::parabola()
     cout << "x\ty\tx^2\tx^3\tx^4\txy\tx^2y\n\n";
     for (i = 0; i < p.count; i++)
     {
-        cout << p.x[i] << "\t" << p.y[i] << "\t" << setprecision(4) << pow(p.x[i], 2) << "\t" << setprecision(4) << pow(p.x[i], 3) << "\t" << setprecision(4) << pow(p.x[i], 4) << "\t" << setprecision(4) << (p.x[i] * p.y[i]) << "\t" << setprecision(4) << (pow(p.x[i], 2) * p.y[i]) << endl;
+        cout << p.x[i] << "\t" << p.y[i] << "\t" << setprecision(4) << pow(p.x[i], 2) << "\t" << setprecision(4) << pow(p.x[i], 3) << "\t" << setprecision(4) << pow(p.x[i], 4) << "\t" << setprecision(4) << (p.x[i] * p.y[i]) << "\t" << setprecision(4) << (p.y[i] * (p.x[i]*p.x[i])) << endl;
     }
 
     //Calculate required data and print normal equations
@@ -118,17 +119,17 @@ void CurveFitting ::parabola()
     {
         SUMx += p.x[i];
         SUMy += p.y[i];
-        SUMx2 += pow(p.x[i], 2);
-        SUMx3 += pow(p.x[i], 3);
-        SUMx4 += pow(p.x[i], 4);
+        SUMx2 += pow(p.x[i], 2.0);
+        SUMx3 += pow(p.x[i], 3.0);
+        SUMx4 += pow(p.x[i], 4.0);
         SUMxy += (p.x[i] * p.y[i]);
-        SUMx2y += ((p.x[i] * p.x[i]) * p.y[i]);
+        SUMx2y += (p.y[i] * (p.x[i] * p.x[i]));
     }
     //Normal equations
     cout << "\nNormal Equations : \n\n";
     cout << setprecision(4) << SUMx2 << "a + " << setprecision(4) << SUMx << "b + " << p.count << "c = " << setprecision(4) << SUMy << endl;
     cout << setprecision(4) << SUMx3 << "a + " << setprecision(4) << SUMx2 << "b + " << setprecision(4) << SUMx << "c = " << setprecision(4) << SUMxy << endl;
-    cout << setprecision(4) << SUMx4 << "a + " << setprecision(4) << SUMx3 << "b + " << setprecision(4) << SUMx2 << "c + " << setprecision(4) << SUMx2y << endl;
+    cout << setprecision(4) << SUMx4 << "a + " << setprecision(4) << SUMx3 << "b + " << setprecision(4) << SUMx2 << "c = " << setprecision(4) << SUMx2y << endl;
 
     //TODO: Determine a,b,c;
 
