@@ -54,9 +54,11 @@ void CurveFitting::straightLine()
     }
     //Equatious to solve
     /*
-aSUMx + nb = SUMy               (SUM = Summation symbol)
-aSUMx2 + bSUMx = SUMxy
-*/
+    Equation of a straight line  : y = ax + b
+    Apply Summation for above equation
+    aSUMx + nb = SUMy               (SUM = Summation symbol)    
+    aSUMx2 + bSUMx = SUMxy
+    */
     //Calculate all required data
     double SUMx = 0, SUMy = 0, SUMx2 = 0, SUMxy = 0;
 
@@ -132,7 +134,10 @@ void CurveFitting ::parabola()
     cout << setprecision(4) << SUMx4 << "a + " << setprecision(4) << SUMx3 << "b + " << setprecision(4) << SUMx2 << "c = " << setprecision(4) << SUMx2y << endl;
 
     //TODO: Determine a,b,c;
-
+    /*
+    Use of Cramers Rule to Solve System Of equations with 3 unknowns
+    D - Determinant of Matrix
+    */
     double D = (SUMx2 * ((SUMx2 * SUMx2) - (SUMx * SUMx3))) - (SUMx * ((SUMx3 * SUMx2) - (SUMx4 * SUMx))) + (p.count * ((SUMx3 * SUMx3) - (SUMx4 * SUMx2)));
     double Dx = (SUMy * ((SUMx2 * SUMx2) - (SUMx3 * SUMx))) - (SUMx * ((SUMxy * SUMx2) - (SUMx2y * SUMx))) + (p.count * ((SUMxy * SUMx3) - (SUMx2y * SUMx2)));
     double Dy = (SUMx2 * ((SUMxy * SUMx2) - (SUMx2y * SUMx))) - (SUMy * ((SUMx3 * SUMx2) - (SUMx4 * SUMx))) + (p.count * ((SUMx3 * SUMx2y) - (SUMx4 * SUMxy)));
